@@ -1,5 +1,15 @@
 import express from "express";
 import { create } from "express-handlebars";
+import * as dotenv from "dotenv";
+import mongoose from "mongoose";
+import session from "express-session";
+import flash from "connect-flash";
+
+// ROUTES
+import AuthRouter from "./routes/auth.js";
+import ProductRouter from "./routes/product.js";
+
+dotenv.config();
 
 const app = express();
 
@@ -12,15 +22,30 @@ app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(session({ secret: "Secret", resave: false, saveUninitialized: false }));
+app.use(flash());
 
-app.get("/about", (req, res) => {
-  res.render("about");
-});
+// ROUTES
+app.use(AuthRouter);
+app.use(ProductRouter);
 
-const PORT = process.env.PORT || 1000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const startApp = () => {
+  try {
+    mongoose.set("strictQuery", false);
+    mongoose
+      .connect(process.env.MONGODB_URI)
+      .then(() => console.log("MongoDb connected"))
+      .catch((error) => console.log(error));
+
+    const PORT = process.env.PORT || 1000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+startApp();
