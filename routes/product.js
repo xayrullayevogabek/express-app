@@ -33,8 +33,12 @@ router.post("/add-product", userMiddleware, async (req, res) => {
   res.redirect("/add");
 });
 
-router.get("/products", (req, res) => {
-  res.render("products");
+router.get("/products", async (req, res) => {
+  const user = req.userId ? req.userId.toString() : null;
+  const products = await Product.find({ user }).populate("user").lean();
+  res.render("products", {
+    products,
+  });
 });
 
 export default router;
