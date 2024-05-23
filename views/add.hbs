@@ -1,1 +1,68 @@
-<h1>Prod</h1>
+<h1 class="mb-5">Add Product</h1>
+{{#if errorAddProduct}}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong>
+    {{errorAddProduct}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+{{/if}}
+{{#if successAddProduct}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong>
+    {{successAddProduct}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+{{/if}}
+<form action="/add-product" method="post">
+  <div class="form-floating mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="floatingInput"
+      name="title"
+      placeholder="Enter your title"
+    />
+    <label for="floatingInput">Title</label>
+  </div>
+  <div class="form-floating">
+    <textarea
+      class="form-control"
+      name="description"
+      placeholder="Leave a comment here"
+      id="floatingTextarea2"
+      style="height: 100px"
+    ></textarea>
+    <label for="floatingTextarea2">Description</label>
+  </div>
+  <div class="form-floating mt-3">
+    <input
+      type="text"
+      class="form-control"
+      id="floatingInput"
+      placeholder="Enter your title"
+      name="image"
+    />
+    <label for="floatingInput">Image</label>
+  </div>
+  <div class="input-group mt-3">
+    <span class="input-group-text">$</span>
+    <input
+      type="number"
+      name="price"
+      placeholder="Price"
+      class="form-control"
+      aria-label="Amount (to the nearest dollar)"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Add Product</button>
+</form>

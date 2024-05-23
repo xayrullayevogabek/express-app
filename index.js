@@ -6,6 +6,7 @@ import session from "express-session";
 import flash from "connect-flash";
 import cookieParser from "cookie-parser";
 import authMiddleware from "./middlewares/var.js";
+import userMiddleware from "./middlewares/user.js";
 
 // ROUTES
 import AuthRouter from "./routes/auth.js";
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(session({ secret: "Secret", resave: false, saveUninitialized: false }));
 app.use(flash());
 
+app.use(userMiddleware);
 app.use(authMiddleware);
 
 // ROUTES
