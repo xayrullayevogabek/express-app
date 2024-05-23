@@ -7,6 +7,7 @@ import flash from "connect-flash";
 import cookieParser from "cookie-parser";
 import authMiddleware from "./middlewares/var.js";
 import userMiddleware from "./middlewares/user.js";
+import hbsHelpers from "./utils/index.js";
 
 // ROUTES
 import AuthRouter from "./routes/auth.js";
@@ -19,6 +20,7 @@ const app = express();
 const hbs = create({
   defaultLayout: "main",
   extname: "hbs",
+  helpers: hbsHelpers,
 });
 
 app.engine("hbs", hbs.engine);
