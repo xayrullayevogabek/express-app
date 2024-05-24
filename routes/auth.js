@@ -40,7 +40,6 @@ router.post("/login", async (req, res) => {
     res.redirect("/login");
     return;
   }
-
   const token = generateJWTToken(existUser._id);
 
   res.cookie("token", token, { secure: true });

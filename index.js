@@ -57,5 +57,4 @@ const startApp = () => {
     console.log(error);
   }
 };
-
 startApp();
