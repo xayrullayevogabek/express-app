@@ -41,4 +41,34 @@ router.get("/products", async (req, res) => {
   });
 });
 
+router.get("/product/:id", async (req, res) => {
+  const id = req.params.id;
+  const product = await Product.findById(id).lean();
+  res.render("detail", {
+    product,
+  });
+});
+
+router.get("/product/edit/:id", async (req, res) => {
+  const id = req.params.id;
+  const product = await Product.findById(id).lean();
+
+  res.render("edit", {
+    product,
+    errorEditProduct: req.flash("errorEditProduct"),
+  });
+});
+
+router.post("/edit-product/:id", async (req, res) => {
+  const id = req.params.id;
+  const { title, price, image, description } = req.body;
+  if (!title || !price || !image || !description) {
+    req.flash("errorEditProduct", "All fields should be filled");
+    res.redirect(`/product/edit/${id}`);
+    return;
+  }
+  await Product.findByIdAndUpdate(id, req.body);
+  res.redirect("/products");
+});
+
 export default router;

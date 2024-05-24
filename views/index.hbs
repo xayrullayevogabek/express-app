@@ -15,16 +15,18 @@
             class="card-footer d-flex align-items-center justify-content-between"
           >
             <div aria-label="Basic outlined example">
-              <button
+              <a
                 type="button"
+                href="/product/{{_id}}"
                 class="btn btn-outline-primary"
-              >Detail</button>
+              >Detail</a>
               {{#if @root.token}}
                 {{#ifequal user @root.userId}}
-                  <button
+                  <a
+                    href="/product/edit/{{_id}}"
                     type="button"
                     class="btn btn-outline-secondary"
-                  >Edit</button>
+                  >Edit</a>
                   <button
                     type="button"
                     class="btn btn-outline-danger"
@@ -49,7 +51,7 @@
             <h1 class="text-center">404</h1>
           </div>
           <div class="contant_box_404">
-            <h3 class="h2">Add new products</h3>
+            <h3 class="h2"> new products</h3>
             <a href="/add" class="btn btn-primary btn-lg mb-5">Add products</a>
           </div>
         </div>
